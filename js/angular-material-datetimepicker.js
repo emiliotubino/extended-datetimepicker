@@ -17,54 +17,50 @@
     }
   };
 
-  var template = '<md-dialog class="dtp" layout="column" style="width: 300px;">'
-    +'  <md-toolbar><div class="md-toolbar-tools dtp-header">'
-    +'   <md-button class="md-icon-button" aria-label="extended datetime picker">'
-    +'        <md-icon>event_note</md-icon>'
-    +'      </md-button>'
-    +'      <h2>{{picker.currentDate.format("dddd")}}, {{picker.currentDate.format("MMMM")}} {{picker.currentDate.format("DD")}} <br/>'
-    +'      week# {{picker.currentDate.isoWeek()}} @ {{picker.currentNearest5Minute().format(picker.params.shortTime ? "hh:mm" : "HH:mm")}}</h2>'
-    +'     <md-button class="md-icon-button" ng-click="picker.hide()"><md-icon>close</md-icon><md-tooltip>Close</md-tooltip></md-button></div></md-toolbar>'
-    +'   <md-divider></md-divider>'
-    + '    <md-dialog-content class="dtp-content">'
-    + '        <div class="dtp-date-view">'
-    + '            <div class="dtp-date" ng-show="picker.params.date">'
-    + '                <div layout="row">'
-    + ' <div ng-click="picker.incrementYear(-1)" class="dtp-year-btn dtp-year-btn-prev" flex="30"><span ng-if="picker.isPreviousYearVisible()" >&#x25B2;</span></div>'
-    + '                    <div class="dtp-actual-year" flex>{{picker.currentDate.format("YYYY")}}</div>'
-    + ' <div ng-click="picker.incrementYear(1)" class="dtp-year-btn dtp-year-btn-next" flex="30"><span ng-if="picker.isNextYearVisible()" >&#x25BC;</span></div>'
-    + '                </div>'
-    + '            </div>'//start time
-    + '            <div class="dtp-time" ng-show="picker.params.time && !picker.params.date">'
-    + '                <div class="dtp-actual-maxtime">{{picker.currentNearest5Minute().format(picker.params.shortTime ? "hh:mm" : "HH:mm")}}</div>'
-    + '            </div>'
-    + '            <div class="dtp-picker">'
-    + '                <mdc-datetime-picker-calendar date="picker.currentDate" picker="picker" class="dtp-picker-calendar" ng-show="picker.currentView === picker.VIEWS.DATE"></mdc-datetime-picker-calendar>'
-    + '                <div class="dtp-picker-datetime" ng-show="picker.currentView !== picker.VIEWS.DATE">'
-    + '                    <div class="dtp-actual-meridien">'
-    + '                        <div class="left p20">'
-    + '                            <a href="#" mdc-dtp-noclick class="dtp-meridien-am" ng-class="{selected: picker.meridien == \'AM\'}" ng-click="picker.selectAM()">{{picker.params.amText}}</a>'
-    + '                        </div>'
-    + '                        <div ng-show="!picker.timeMode" class="dtp-actual-time p60">{{picker.currentNearest5Minute().format(picker.params.shortTime ? "hh:mm" : "HH:mm")}}</div>'
-    + '                        <div class="right p20">'
-    + '                            <a href="#" mdc-dtp-noclick class="dtp-meridien-pm" ng-class="{selected: picker.meridien == \'PM\'}" ng-click="picker.selectPM()">{{picker.params.pmText}}</a>'
-    + '                        </div>'
-    + '                        <div class="clearfix"></div>'
-    + '                    </div>'
-    + '                    <mdc-datetime-picker-clock mode="hours" ng-if="picker.currentView === picker.VIEWS.HOUR"></mdc-datetime-picker-clock>'
-    + '                    <mdc-datetime-picker-clock mode="minutes" ng-if="picker.currentView === picker.VIEWS.MINUTE"></mdc-datetime-picker-clock>'
-    + '                </div>'
-    + '            </div>'
-    + '        </div>'
-    + '    </md-dialog-content>'
-    + '    <md-dialog-actions class="dtp-buttons" layout="row" layout-align="space-between end">'
-    + '            <md-button class="dtp-btn-cancel md-icon-button" ng-click="picker.today()" ng-if="picker.currentView == picker.VIEWS.DATE">'
-    + '             <md-tooltip md-direction="bottom"><em>Today: {{picker.todaysDate}} </em></md-tooltip>'
-    + '             <md-icon>today</md-icon></md-button>'
-    + '            <md-button class="dtp-btn-cancel md-button" ng-click="picker.cancel()"> {{picker.params.cancelText}}</md-button>'
-    + '            <md-button class="dtp-btn-ok md-button" ng-click="picker.ok()"> {{picker.params.okText}}</md-button>'
-    + '      </md-dialog-actions>'
-    + '</md-dialog>';
+  var template = '  <md-dialog class="dtp" layout="column" style="width: 300px;">'
+  + '    <md-toolbar>'
+  + '      <div class="md-toolbar-tools dtp-header">'
+  + '        <div class="dtp-year">{{picker.currentDate.format("YYYY")}}</div>'
+  + '        <div class="dtp-month-year">{{picker.currentDate.format("MMMM")}} {{picker.currentDate.format("YYYY")}}</div>'
+  + '      </div>'
+  + '      </md-toolbar>'
+  + '        <md-divider></md-divider>'
+  + '      <md-dialog-content class="dtp-content">'
+  + '        <div class="dtp-date-view">'
+  + '          <div class="dtp-date" ng-show="picker.params.date">'
+  + '              <div layout="row">'
+  + '                <div ng-click="picker.incrementMonth(-1)" class="dtp-year-btn dtp-year-btn-prev" flex="30"><image src="images/arrow-left.svg" ></div>'
+  + '                <div class="dtp-actual-month" flex>{{picker.currentDate.format("MMMM")}} {{picker.currentDate.format("YYYY")}}</div>'
+  + '                <div ng-click="picker.incrementMonth(1)" class="dtp-year-btn dtp-year-btn-next" flex="30"><img src="images/arrow-right.svg"></div>'
+  + '              </div>'
+  + '          </div>'
+  + '          <div class="dtp-time" ng-show="picker.params.time && !picker.params.date">'
+  + '            <div class="dtp-actual-maxtime">{{picker.currentNearest5Minute().format(picker.params.shortTime ? "hh:mm" : "HH:mm")}}</div>'
+  + '          </div>'
+  + '          <div class="dtp-picker">'
+  + '            <mdc-datetime-picker-calendar date="picker.currentDate" picker="picker" class="dtp-picker-calendar" ng-show="picker.currentView === picker.VIEWS.DATE"></mdc-datetime-picker-calendar>'
+  + '            <div class="dtp-picker-datetime" ng-show="picker.currentView !== picker.VIEWS.DATE">'
+  + '              <div class="dtp-actual-meridien">'
+  + '                <div class="left p20">'
+  + '                  <a href="#" mdc-dtp-noclick class="dtp-meridien-am" ng-class="{selected: picker.meridien == \'AM\'}" ng-click="picker.selectAM()">{{picker.params.amText}}</a>'
+  + '                </div>'
+  + '                <div ng-show="!picker.timeMode" class="dtp-actual-time p60">{{picker.currentNearest5Minute().format(picker.params.shortTime ? "hh:mm" : "HH:mm")}}</div>'
+  + '                <div class="right p20">'
+  + '                    <a href="#" mdc-dtp-noclick class="dtp-meridien-pm" ng-class="{selected: picker.meridien == \'PM\'}" ng-click="picker.selectPM()">{{picker.params.pmText}}</a>'
+  + '                </div>'
+  + '                <div class="clearfix"></div>'
+  + '              </div>'
+  + '              <mdc-datetime-picker-clock mode="hours" ng-if="picker.currentView === picker.VIEWS.HOUR"></mdc-datetime-picker-clock>'
+  + '              <mdc-datetime-picker-clock mode="minutes" ng-if="picker.currentView === picker.VIEWS.MINUTE"></mdc-datetime-picker-clock>'
+  + '            </div>'
+  + '          </div>'
+  + '        </div>'
+  + '      </md-dialog-content>'
+  + '      <md-dialog-actions class="dtp-buttons" layout="row" layout-align="flex-end end">'
+  + '        <md-button class="dtp-btn-cancel md-button" ng-click="picker.cancel()"> {{picker.params.cancelText}}</md-button>'
+  + '        <md-button class="dtp-btn-ok md-button" ng-click="picker.ok()"> {{picker.params.okText}}</md-button>'
+  + '      </md-dialog-actions>'
+  + '  </md-dialog>';
 
   angular.module(moduleName, ['ngAnimate','ngMaterial'])
     .config(function($mdIconProvider) {
@@ -380,13 +376,12 @@
     isPM: function () {
       return this.meridien === 'PM';
     },
-    incrementYear: function (amount) {
-      if (amount === 1 && this.isNextYearVisible()) {
-        this.selectDate(this.currentDate.add(amount, 'year'));
+    incrementMonth: function (amount) {
+      if (amount === 1) {
+        this.selectDate(this.currentDate.add(amount, 'month'));
       }
-
-      if (amount === -1 && this.isPreviousYearVisible()) {
-        this.selectDate(this.currentDate.add(amount, 'year'));
+      if (amount === -1) {
+        this.selectDate(this.currentDate.add(amount, 'month'));
       }
     },
     isPreviousMonthVisible: function () {
@@ -628,8 +623,7 @@
               calendar.toDay = function (i) {
                 return moment(parseInt(i), "d")
                   .locale(picker.params.lang)
-                  .format("dd")
-                  .substring(0, 1);
+                  .format("ddd");
               };
 
               calendar.isInRange = function (date) {
@@ -709,8 +703,7 @@
           },
           require: '^mdcDatetimePickerCalendar',
           restrict: 'AE',
-          template: '<div class="dtp-picker-month">{{month.name}}</div>'
-          + '<table class="table dtp-picker-days">'
+          template:'<table ng-show="cal.picker.currentDate.format(\'MMMM YYYY\').toString() === month.name" class="table dtp-picker-days">'
           + '    <thead>'
           + '    <tr>'
           + '        <th ng-repeat="day in cal.week">{{cal.toDay(day)}}</th>'
