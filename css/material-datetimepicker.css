@@ -7,7 +7,11 @@ md-dialog.dtp {
 }
 
 .md-virtual-repeat-container .md-virtual-repeat-scroller {
-    overflow-x: initial;
+    overflow-x: initial !important;
+}
+
+.md-virtual-repeat-offsetter {
+    transform: initial;
 }
 
 .md-toolbar-tools {
@@ -59,9 +63,9 @@ md-dialog.dtp {
     font-size: medium;
     margin: auto;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
 }
 
 .dtp > .dtp-content > .dtp-date-view > header.dtp-header {
