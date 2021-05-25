@@ -22,8 +22,8 @@
       $scope.date = new Date();
       $scope.time = new Date();
       $scope.dateTime = new Date();
-      $scope.minDate = moment().subtract(1, 'month');
-      $scope.maxDate = moment().add(1, 'month');
+      $scope.minDate = moment().subtract(1, 'year');
+      $scope.maxDate = moment().add(1, 'year');
       $scope.dates = days
 
     })

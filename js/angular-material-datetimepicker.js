@@ -29,9 +29,9 @@
   + '        <div class="dtp-date-view">'
   + '          <div class="dtp-date" ng-show="picker.params.date">'
   + '              <div layout="row">'
-  + '                <div ng-click="picker.incrementMonth(-1)" class="dtp-year-btn dtp-year-btn-prev" flex="30"><image src="images/icons/arrow-left.svg" ></div>'
+  + '                <div ng-show="picker.isPreviousMonthVisible()" ng-click="picker.incrementMonth(-1)" class="dtp-year-btn dtp-year-btn-prev" flex="30"><image src="images/icons/arrow-left.svg" ></div>'
   + '                <div class="dtp-actual-month" flex>{{picker.currentDate.format("MMMM")}} {{picker.currentDate.format("YYYY")}}</div>'
-  + '                <div ng-click="picker.incrementMonth(1)" class="dtp-year-btn dtp-year-btn-next" flex="30"><img src="images/icons/arrow-right.svg"></div>'
+  + '                <div ng-show="picker.isNextMonthVisible()" ng-click="picker.incrementMonth(1)" class="dtp-year-btn dtp-year-btn-next" flex="30"><img src="images/icons/arrow-right.svg"></div>'
   + '              </div>'
   + '          </div>'
   + '          <div class="dtp-time" ng-show="picker.params.time && !picker.params.date">'
@@ -657,7 +657,7 @@
             }
           ],
           template: '<md-virtual-repeat-container md-top-index="cal.topIndex" class="months">' +
-          '<div md-virtual-repeat="idx in cal.months" md-start-index="cal.topIndex" md-item-size="' + ITEM_HEIGHT + '">' +
+          '<div md-virtual-repeat="idx in cal.months" md-item-size="1">' +
           '     <div mdc-datetime-picker-calendar-month idx="idx"></div>' +
           '</div>' +
           '</md-virtual-repeat-container>'
