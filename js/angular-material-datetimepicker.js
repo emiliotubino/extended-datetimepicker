@@ -29,9 +29,9 @@
   + '        <div class="dtp-date-view">'
   + '          <div class="dtp-date" ng-show="picker.params.date">'
   + '              <div layout="row">'
-  + '                <div ng-click="picker.incrementMonth(-1)" class="dtp-year-btn dtp-year-btn-prev" flex="30"><image src="./images/arrow-left.svg" ></div>'
+  + '                <div ng-click="picker.incrementMonth(-1)" class="dtp-year-btn dtp-year-btn-prev" flex="30"><image src="images/icons/arrow-left.svg" ></div>'
   + '                <div class="dtp-actual-month" flex>{{picker.currentDate.format("MMMM")}} {{picker.currentDate.format("YYYY")}}</div>'
-  + '                <div ng-click="picker.incrementMonth(1)" class="dtp-year-btn dtp-year-btn-next" flex="30"><img src="./images/arrow-right.svg"></div>'
+  + '                <div ng-click="picker.incrementMonth(1)" class="dtp-year-btn dtp-year-btn-next" flex="30"><img src="images/icons/arrow-right.svg"></div>'
   + '              </div>'
   + '          </div>'
   + '          <div class="dtp-time" ng-show="picker.params.time && !picker.params.date">'
@@ -703,7 +703,7 @@
           },
           require: '^mdcDatetimePickerCalendar',
           restrict: 'AE',
-          template:'=>{{cal.picker.currentDate}}<table ng-show="cal.picker.currentDate.format(\'MMMM YYYY\').toString() === month.name" class="table dtp-picker-days">'
+          template:'<table ng-show="cal.picker.currentDate.format(\'MMMM YYYY\').toString() === month.name" class="table dtp-picker-days">'
           + '    <thead>'
           + '    <tr>'
           + '        <th ng-repeat="day in cal.week">{{cal.toDay(day)}}</th>'

@@ -11,7 +11,7 @@ md-dialog.dtp {
 }
 
 .md-virtual-repeat-offsetter {
-    /* transform: initial !important; */
+    transform: initial !important;
 }
 
 .md-toolbar-tools {
@@ -321,6 +321,8 @@ md-dialog.dtp {
 .dtp .dtp-buttons {
     padding: 0 10px 10px 10px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .dtp.hidden, .dtp .hidden {
