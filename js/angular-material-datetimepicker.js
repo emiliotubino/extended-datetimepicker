@@ -21,6 +21,11 @@
   + '    <md-toolbar>'
   + '      <div class="md-toolbar-tools dtp-header">'
   + '        <div ng-if="!picker.params.time && picker.params.date">'
+  + '         <div layout="row">'
+  + '           <div ng-show="picker.isPreviousMonthVisible()" ng-click="picker.incrementYear(-1)" class="dtp-year-btn dtp-year-btn-prev" flex="30"><image src="images/icons/arrow-left.svg" ></div>'
+  + '           <div class="dtp-year">{{picker.currentDate.format("YYYY")}}</div>'
+  + '           <div ng-show="picker.isNextMonthVisible()" ng-click="picker.incrementYear(1)" class="dtp-year-btn dtp-year-btn-next" flex="30"><img src="images/icons/arrow-right.svg"></div>'
+  + '         </div>'
   + '         <div class="dtp-year">{{picker.currentDate.format("YYYY")}}</div>'
   + '         <div class="dtp-month-year">{{picker.currentDate.format("MMMM")}} {{picker.currentDate.format("YYYY")}}</div>'
   + '        </div>'
@@ -383,6 +388,14 @@
       }
       if (amount === -1) {
         this.selectDate(this.currentDate.add(amount, 'month'));
+      }
+    },
+    incrementYear: function (amount) {
+      if (amount === 1) {
+        this.selectDate(this.currentDate.add(amount, 'Year'));
+      }
+      if (amount === -1) {
+        this.selectDate(this.currentDate.add(amount, 'Year'));
       }
     },
     isPreviousMonthVisible: function () {
