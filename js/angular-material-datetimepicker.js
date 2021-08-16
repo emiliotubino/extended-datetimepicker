@@ -386,18 +386,21 @@
     incrementMonth: function (amount) {
       if (amount === 1) {
         this.selectDate(this.currentDate.add(amount, 'month'));
-        console.log('maxDate', this.maxDate)
+        this.maxDate = this.maxDate.add(amount, 'month')
       }
       if (amount === -1) {
         this.selectDate(this.currentDate.add(amount, 'month'));
+        this.maxDate = this.maxDate.add(amount, 'month')
       }
     },
     incrementYear: function (amount) {
       if (amount === 1) {
         this.selectDate(this.currentDate.add(amount, 'Year'));
+        this.maxDate = this.maxDate.add(amount, 'Year')
       }
       if (amount === -1) {
         this.selectDate(this.currentDate.add(amount, 'Year'));
+        this.maxDate = this.maxDate.add(amount, 'Year')
       }
     },
     isPreviousMonthVisible: function () {
