@@ -264,6 +264,7 @@
       this.weekDays = this.params.weekDays;
     },
     initDate: function (d) {
+      console.log('VIEW_STATES.DATE', VIEW_STATES.DATE)
       this.currentView = VIEW_STATES.DATE;
     },
     initHours: function () {
@@ -604,6 +605,7 @@
 
               var generateMonthCalendar = function (date) {
                 var month = {};
+                console.log('date', date)
                 if (date !== null) {
                   month.name = date.format('MMMM YYYY');
                   var startOfMonth = moment(date).locale(picker.params.lang).startOf('month')
@@ -680,38 +682,35 @@
     .directive('mdcDatetimePickerCalendarMonth', ['$compile',
       function ($compile) {
         var buildCalendarContent = function (element, scope) {
-          console.log(scope.month, scope.date)
-          if (scope.date === scope.month) {
-            var tbody = angular.element(element[0].querySelector('tbody'));
-            var calendar = scope.cal, month = scope.month;
-            tbody.html('');
-            month.days.forEach(function (weekDays, i) {
-              var tr = angular.element('<tr></tr>');
-              weekDays.forEach(function (weekDay, j) {
-                var td = angular.element('<td> </td>');
-                if (weekDay) {
-                  var aOrSpan;
-                  if (calendar.isInRange(weekDay)) {
-                    //build a
-                    var scopeRef = 'month["days"][' + i + '][' + j + ']';
-                    aOrSpan = angular.element("<a href='#' mdc-dtp-noclick></a>")
-                      .attr('ng-class', '{selected: cal.isSelectedDay(' + scopeRef + ')}')
-                      .attr('ng-click', 'cal.selectDate(' + scopeRef + ')')
-                    ;
-                  } else {
-                    aOrSpan = angular.element('<span></span>')
-                  }
-                  aOrSpan
-                    .addClass('dtp-select-day')
-                    .html(weekDay.format('D'));
-                  td.append(aOrSpan);
+          var tbody = angular.element(element[0].querySelector('tbody'));
+          var calendar = scope.cal, month = scope.month;
+          tbody.html('');
+          month.days.forEach(function (weekDays, i) {
+            var tr = angular.element('<tr></tr>');
+            weekDays.forEach(function (weekDay, j) {
+              var td = angular.element('<td> </td>');
+              if (weekDay) {
+                var aOrSpan;
+                if (calendar.isInRange(weekDay)) {
+                  //build a
+                  var scopeRef = 'month["days"][' + i + '][' + j + ']';
+                  aOrSpan = angular.element("<a href='#' mdc-dtp-noclick></a>")
+                    .attr('ng-class', '{selected: cal.isSelectedDay(' + scopeRef + ')}')
+                    .attr('ng-click', 'cal.selectDate(' + scopeRef + ')')
+                  ;
+                } else {
+                  aOrSpan = angular.element('<span></span>')
                 }
-                tr.append(td);
-              });
-              tbody.append(tr);
+                aOrSpan
+                  .addClass('dtp-select-day')
+                  .html(weekDay.format('D'));
+                td.append(aOrSpan);
+              }
+              tr.append(td);
             });
-            $compile(tbody)(scope);
-          }
+            tbody.append(tr);
+          });
+          $compile(tbody)(scope);
         };
 
         return {
@@ -732,13 +731,11 @@
           link: function (scope, element, attrs, calendar) {
             scope.cal = calendar;
             scope.month = calendar.getItemAtIndex(parseInt(scope.idx));
-            console.log(scope.month, scope.cal)
             buildCalendarContent(element, scope);
             scope.$watch(function () {
               return scope.idx;
             }, function (idx, oldIdx) {
               if (idx != oldIdx) {
-                console.log('above', scope.month, scope.cal)
                 scope.month = calendar.getItemAtIndex(parseInt(scope.idx));
                 buildCalendarContent(element, scope);
               }
