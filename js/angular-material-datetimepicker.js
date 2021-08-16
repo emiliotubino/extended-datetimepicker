@@ -387,7 +387,6 @@
       //   this.maxDate = this.maxDate.add(amount, 'month')
       // }
       this.selectDate(this.currentDate.add(amount, 'month'));
-      this.initDate()
     },
     incrementYear: function (amount) {
       // if (amount === 1) {
@@ -398,7 +397,6 @@
       //   this.maxDate = this.maxDate.add(amount, 'Year')
       // }
       this.selectDate(this.currentDate.add(amount, 'Year'));
-      this.initDate()
     },
     incrementYear: function (amount) {
       if (amount === 1 && this.isNextYearVisible()) {
