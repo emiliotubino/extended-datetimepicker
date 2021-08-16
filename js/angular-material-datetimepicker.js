@@ -384,24 +384,26 @@
       return this.meridien === 'PM';
     },
     incrementMonth: function (amount) {
-      if (amount === 1) {
-        this.selectDate(this.currentDate.add(amount, 'month'));
-        this.maxDate = this.maxDate.add(amount, 'month')
-      }
-      if (amount === -1) {
-        this.selectDate(this.currentDate.add(amount, 'month'));
-        this.maxDate = this.maxDate.add(amount, 'month')
-      }
+      // if (amount === 1) {
+      //   this.selectDate(this.currentDate.add(amount, 'month'));
+      //   this.maxDate = this.maxDate.add(amount, 'month')
+      // }
+      // if (amount === -1) {
+      //   this.maxDate = this.maxDate.add(amount, 'month')
+      // }
+      this.selectDate(this.currentDate.add(amount, 'month'));
+      this.initDate()
     },
     incrementYear: function (amount) {
-      if (amount === 1) {
-        this.selectDate(this.currentDate.add(amount, 'Year'));
-        this.maxDate = this.maxDate.add(amount, 'Year')
-      }
-      if (amount === -1) {
-        this.selectDate(this.currentDate.add(amount, 'Year'));
-        this.maxDate = this.maxDate.add(amount, 'Year')
-      }
+      // if (amount === 1) {
+      //   this.selectDate(this.currentDate.add(amount, 'Year'));
+      //   this.maxDate = this.maxDate.add(amount, 'Year')
+      // }
+      // if (amount === -1) {
+      //   this.maxDate = this.maxDate.add(amount, 'Year')
+      // }
+      this.selectDate(this.currentDate.add(amount, 'Year'));
+      this.initDate()
     },
     isPreviousMonthVisible: function () {
       return this.calendarStart && this.isAfterMinDate(moment(this.calendarStart).startOf('month'), false, false);
