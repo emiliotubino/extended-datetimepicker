@@ -52,7 +52,7 @@
   + '          </div>'
   + '          <div class="dtp-picker">'
   + '            <mdc-datetime-picker-calendar date="picker.currentDate" picker="picker" class="dtp-picker-calendar"></mdc-datetime-picker-calendar>'
-  + '            <div class="dtp-picker-datetime" ng-show="picker.currentView !== picker.VIEWS.DATE">'
+  + '            <div class="dtp-picker-datetime">'
   + '              <div class="dtp-actual-meridien">'
   + '                <div class="clearfix"></div>'
   + '              </div>'
