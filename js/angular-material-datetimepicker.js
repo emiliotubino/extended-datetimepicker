@@ -726,7 +726,7 @@
           },
           require: '^mdcDatetimePickerCalendar',
           restrict: 'AE',
-          template:'<table ng-show="cal.picker.currentDate.format(\'MMMM YYYY\').toString() === month.name" class="table dtp-picker-days">'
+          template:'<table class="table dtp-picker-days">'
           + '    <thead>'
           + '    <tr>'
           + '        <th ng-repeat="day in cal.week">{{cal.toDay(day)}}</th>'
