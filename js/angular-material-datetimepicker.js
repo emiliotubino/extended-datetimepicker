@@ -680,35 +680,38 @@
     .directive('mdcDatetimePickerCalendarMonth', ['$compile',
       function ($compile) {
         var buildCalendarContent = function (element, scope) {
-          var tbody = angular.element(element[0].querySelector('tbody'));
-          var calendar = scope.cal, month = scope.month;
-          tbody.html('');
-          month.days.forEach(function (weekDays, i) {
-            var tr = angular.element('<tr></tr>');
-            weekDays.forEach(function (weekDay, j) {
-              var td = angular.element('<td> </td>');
-              if (weekDay) {
-                var aOrSpan;
-                if (calendar.isInRange(weekDay)) {
-                  //build a
-                  var scopeRef = 'month["days"][' + i + '][' + j + ']';
-                  aOrSpan = angular.element("<a href='#' mdc-dtp-noclick></a>")
-                    .attr('ng-class', '{selected: cal.isSelectedDay(' + scopeRef + ')}')
-                    .attr('ng-click', 'cal.selectDate(' + scopeRef + ')')
-                  ;
-                } else {
-                  aOrSpan = angular.element('<span></span>')
+          console.log(scope.month, scope.date)
+          if (scope.date === scope.month) {
+            var tbody = angular.element(element[0].querySelector('tbody'));
+            var calendar = scope.cal, month = scope.month;
+            tbody.html('');
+            month.days.forEach(function (weekDays, i) {
+              var tr = angular.element('<tr></tr>');
+              weekDays.forEach(function (weekDay, j) {
+                var td = angular.element('<td> </td>');
+                if (weekDay) {
+                  var aOrSpan;
+                  if (calendar.isInRange(weekDay)) {
+                    //build a
+                    var scopeRef = 'month["days"][' + i + '][' + j + ']';
+                    aOrSpan = angular.element("<a href='#' mdc-dtp-noclick></a>")
+                      .attr('ng-class', '{selected: cal.isSelectedDay(' + scopeRef + ')}')
+                      .attr('ng-click', 'cal.selectDate(' + scopeRef + ')')
+                    ;
+                  } else {
+                    aOrSpan = angular.element('<span></span>')
+                  }
+                  aOrSpan
+                    .addClass('dtp-select-day')
+                    .html(weekDay.format('D'));
+                  td.append(aOrSpan);
                 }
-                aOrSpan
-                  .addClass('dtp-select-day')
-                  .html(weekDay.format('D'));
-                td.append(aOrSpan);
-              }
-              tr.append(td);
+                tr.append(td);
+              });
+              tbody.append(tr);
             });
-            tbody.append(tr);
-          });
-          $compile(tbody)(scope);
+            $compile(tbody)(scope);
+          }
         };
 
         return {
