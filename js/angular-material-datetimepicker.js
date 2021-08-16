@@ -386,6 +386,7 @@
     incrementMonth: function (amount) {
       if (amount === 1) {
         this.selectDate(this.currentDate.add(amount, 'month'));
+        console.log('maxDate', maxDate)
       }
       if (amount === -1) {
         this.selectDate(this.currentDate.add(amount, 'month'));
