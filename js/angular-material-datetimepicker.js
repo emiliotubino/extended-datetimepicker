@@ -68,13 +68,9 @@
   + '      </md-dialog-actions>'
   + '  </md-dialog>';
 
-  angular.module(moduleName, ['ngAnimate','ngMaterial'])
-    .config(function($mdIconProvider) {
-      $mdIconProvider.defaultIconSet('', 24);
-    })
+  angular.module(moduleName, ['ngMaterial'])
     .provider('mdcDatetimePickerDefaultLocale', function () {
-      var language = (navigator.language || navigator.userLanguage).slice(0, 2);
-      this.locale = language;
+      this.locale = 'en';
 
       this.$get = function () {
         return this.locale;
@@ -97,7 +93,7 @@
             minDate: '=',
             maxDate: '=',
             disableDates: '=',
-            weekDays: '=',
+            // weekDays: '=',
             shortTime: '=',
             format: '@',
             cancelText: '@',
@@ -182,7 +178,7 @@
     this.minDate;
     this.maxDate;
     this.disableDates;
-    this.weekDays;
+    // this.weekDays;
 
     this._attachedEvents = [];
     this.VIEWS = VIEW_STATES;
@@ -195,7 +191,7 @@
       maxDate: null,
       currentDate: null,
       disableDates: [],
-      weekDays: false,
+      // weekDays: false,
       lang: mdcDatetimePickerDefaultLocale,
       weekStart: 0,
       shortTime: false,
@@ -214,7 +210,7 @@
     init: function () {
       this.timeMode = this.params.time && !this.params.date;
       this.dateMode = this.params.date;
-      this.todaysDate = moment(Date.now()).format("YYYY-MM-DD");
+      // this.todaysDate = moment(Date.now()).format("YYYY-MM-DD");
       this.initDates();
       this.start();
     },
@@ -261,10 +257,9 @@
         return moment(x).format('MMMM Do YYYY')
       });
       this.selectDate(this.currentDate);
-      this.weekDays = this.params.weekDays;
+      // this.weekDays = this.params.weekDays;
     },
     initDate: function (d) {
-      console.log('VIEW_STATES.DATE', VIEW_STATES.DATE)
       this.currentView = VIEW_STATES.DATE;
     },
     initHours: function () {
@@ -346,15 +341,15 @@
       }
       return true;
     },
-    isWeekDay: function(date) {
-      if (this.weekDays) {
-        if ( date.isoWeekday() <= 5) {
-          return true;
-        }
-        return false;
-      }
-      return true;
-    },
+    // isWeekDay: function(date) {
+    //   if (this.weekDays) {
+    //     if ( date.isoWeekday() <= 5) {
+    //       return true;
+    //     }
+    //     return false;
+    //   }
+    //   return true;
+    // },
     selectDate: function (date) {
       if (date) {
         this.currentDate = moment(date);
@@ -404,6 +399,15 @@
       // }
       this.selectDate(this.currentDate.add(amount, 'Year'));
       this.initDate()
+    },
+    incrementYear: function (amount) {
+      if (amount === 1 && this.isNextYearVisible()) {
+        this.selectDate(this.currentDate.add(amount, 'year'));
+      }
+
+      if (amount === -1 && this.isPreviousYearVisible()) {
+        this.selectDate(this.currentDate.add(amount, 'year'));
+      }
     },
     isPreviousMonthVisible: function () {
       return this.calendarStart && this.isAfterMinDate(moment(this.calendarStart).startOf('month'), false, false);
@@ -611,7 +615,6 @@
 
               var generateMonthCalendar = function (date) {
                 var month = {};
-                console.log('date', date)
                 if (date !== null) {
                   month.name = date.format('MMMM YYYY');
                   var startOfMonth = moment(date).locale(picker.params.lang).startOf('month')
@@ -651,7 +654,7 @@
               calendar.isInRange = function (date) {
                 return picker.isAfterMinDate(moment(date), false, false)
                   && picker.isBeforeMaxDate(moment(date), false, false)
-                  && picker.isWeekDay(moment(date))
+                  // && picker.isWeekDay(moment(date))
                   && picker.isInDisableDates(moment(date));
               };
 
@@ -668,13 +671,13 @@
                 return m && calendar.date.date() === m.date() && calendar.date.month() === m.month() && calendar.date.year() === m.year();
               };
 
-              calendar.isDateOfTheDay = function (m) {
-                var today = calendar.picker.options.showTodaysDate;
-                if (!today) {
-                  return false;
-                }
-                return m && today.date() === m.date() && today.month() === m.month() && today.year() === m.year();
-              }
+              // calendar.isDateOfTheDay = function (m) {
+              //   var today = calendar.picker.options.showTodaysDate;
+              //   if (!today) {
+              //     return false;
+              //   }
+              //   return m && today.date() === m.date() && today.month() === m.month() && today.year() === m.year();
+              // }
 
             }
           ],
@@ -947,4 +950,4 @@
         }
       }]);
 
-})(moment);
+  })(moment);
