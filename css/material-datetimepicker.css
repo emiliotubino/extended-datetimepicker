@@ -11,7 +11,7 @@ md-dialog.dtp {
 }
 
 .md-virtual-repeat-offsetter {
-    transform: initial !important;
+    transform: initial;
 }
 
 .md-toolbar-tools {
