@@ -22,9 +22,9 @@
   + '      <div class="md-toolbar-tools dtp-header">'
   + '        <div ng-if="!picker.params.time && picker.params.date">'
   + '         <div layout="row">'
-  + '           <div ng-show="picker.isPreviousYearVisible()" ng-click="picker.incrementYear(-1)" class="dtp-year-btn dtp-year-btn-prev" flex="30"><image src="images/icons/arrow-left.svg" ></div>'
+  + '           <div ng-show="picker.isPreviousMonthVisible()" ng-click="picker.incrementYear(-1)" class="dtp-year-btn dtp-year-btn-prev" flex="30"><image src="images/icons/arrow-left.svg" ></div>'
   + '           <div class="dtp-year">{{picker.currentDate.format("YYYY")}}</div>'
-  + '           <div ng-show="picker.isNextYearVisible()" ng-click="picker.incrementYear(1)" class="dtp-year-btn dtp-year-btn-next" flex="30"><img src="images/icons/arrow-right.svg"></div>'
+  + '           <div ng-show="picker.isNextMonthVisible()" ng-click="picker.incrementYear(1)" class="dtp-year-btn dtp-year-btn-next" flex="30"><img src="images/icons/arrow-right.svg"></div>'
   + '         </div>'
   + '         <div class="dtp-year">{{picker.currentDate.format("YYYY")}}</div>'
   + '         <div class="dtp-month-year">{{picker.currentDate.format("MMMM")}} {{picker.currentDate.format("YYYY")}}</div>'
@@ -51,8 +51,8 @@
   + '              </div>'
   + '          </div>'
   + '          <div class="dtp-picker">'
-  + '            <mdc-datetime-picker-calendar date="picker.currentDate" picker="picker" class="dtp-picker-calendar"></mdc-datetime-picker-calendar>'
-  + '            <div class="dtp-picker-datetime">'
+  + '            <mdc-datetime-picker-calendar date="picker.currentDate" picker="picker" class="dtp-picker-calendar" ng-show="picker.currentView === picker.VIEWS.DATE"></mdc-datetime-picker-calendar>'
+  + '            <div class="dtp-picker-datetime" ng-show="picker.currentView !== picker.VIEWS.DATE">'
   + '              <div class="dtp-actual-meridien">'
   + '                <div class="clearfix"></div>'
   + '              </div>'
@@ -264,7 +264,6 @@
       this.weekDays = this.params.weekDays;
     },
     initDate: function (d) {
-      console.log('VIEW_STATES.DATE', VIEW_STATES.DATE)
       this.currentView = VIEW_STATES.DATE;
     },
     initHours: function () {
@@ -384,26 +383,20 @@
       return this.meridien === 'PM';
     },
     incrementMonth: function (amount) {
-      // if (amount === 1) {
-      //   this.selectDate(this.currentDate.add(amount, 'month'));
-      //   this.maxDate = this.maxDate.add(amount, 'month')
-      // }
-      // if (amount === -1) {
-      //   this.maxDate = this.maxDate.add(amount, 'month')
-      // }
-      this.selectDate(this.currentDate.add(amount, 'month'));
-      this.initDate()
+      if (amount === 1) {
+        this.selectDate(this.currentDate.add(amount, 'month'));
+      }
+      if (amount === -1) {
+        this.selectDate(this.currentDate.add(amount, 'month'));
+      }
     },
     incrementYear: function (amount) {
-      // if (amount === 1) {
-      //   this.selectDate(this.currentDate.add(amount, 'Year'));
-      //   this.maxDate = this.maxDate.add(amount, 'Year')
-      // }
-      // if (amount === -1) {
-      //   this.maxDate = this.maxDate.add(amount, 'Year')
-      // }
-      this.selectDate(this.currentDate.add(amount, 'Year'));
-      this.initDate()
+      if (amount === 1) {
+        this.selectDate(this.currentDate.add(amount, 'Year'));
+      }
+      if (amount === -1) {
+        this.selectDate(this.currentDate.add(amount, 'Year'));
+      }
     },
     isPreviousMonthVisible: function () {
       return this.calendarStart && this.isAfterMinDate(moment(this.calendarStart).startOf('month'), false, false);
@@ -611,7 +604,6 @@
 
               var generateMonthCalendar = function (date) {
                 var month = {};
-                console.log('date', date)
                 if (date !== null) {
                   month.name = date.format('MMMM YYYY');
                   var startOfMonth = moment(date).locale(picker.params.lang).startOf('month')
@@ -679,7 +671,7 @@
             }
           ],
           template: '<md-virtual-repeat-container md-top-index="cal.topIndex" class="months">' +
-          '<div md-virtual-repeat="idx in cal.months" md-start-index="cal.topIndex" md-item-size="' + ITEM_HEIGHT + '">' +
+          '<div md-virtual-repeat="idx in cal.months" md-item-size="1">' +
           '     <div mdc-datetime-picker-calendar-month idx="idx"></div>' +
           '</div>' +
           '</md-virtual-repeat-container>'
