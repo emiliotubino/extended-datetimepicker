@@ -51,7 +51,7 @@
   + '              </div>'
   + '          </div>'
   + '          <div class="dtp-picker">'
-  + '            <mdc-datetime-picker-calendar date="picker.currentDate" picker="picker" class="dtp-picker-calendar" ng-show="picker.currentView === picker.VIEWS.DATE"></mdc-datetime-picker-calendar>'
+  + '            <mdc-datetime-picker-calendar date="picker.currentDate" picker="picker" class="dtp-picker-calendar"></mdc-datetime-picker-calendar>'
   + '            <div class="dtp-picker-datetime" ng-show="picker.currentView !== picker.VIEWS.DATE">'
   + '              <div class="dtp-actual-meridien">'
   + '                <div class="clearfix"></div>'
@@ -392,7 +392,7 @@
       //   this.maxDate = this.maxDate.add(amount, 'month')
       // }
       this.selectDate(this.currentDate.add(amount, 'month'));
-      this.init()
+      this.initDate()
     },
     incrementYear: function (amount) {
       // if (amount === 1) {
@@ -403,7 +403,7 @@
       //   this.maxDate = this.maxDate.add(amount, 'Year')
       // }
       this.selectDate(this.currentDate.add(amount, 'Year'));
-      this.init()
+      this.initDate()
     },
     isPreviousMonthVisible: function () {
       return this.calendarStart && this.isAfterMinDate(moment(this.calendarStart).startOf('month'), false, false);
