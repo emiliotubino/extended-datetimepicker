@@ -392,7 +392,7 @@
       //   this.maxDate = this.maxDate.add(amount, 'month')
       // }
       this.selectDate(this.currentDate.add(amount, 'month'));
-      this.initDate()
+      this.init()
     },
     incrementYear: function (amount) {
       // if (amount === 1) {
@@ -403,7 +403,7 @@
       //   this.maxDate = this.maxDate.add(amount, 'Year')
       // }
       this.selectDate(this.currentDate.add(amount, 'Year'));
-      this.initDate()
+      this.init()
     },
     isPreviousMonthVisible: function () {
       return this.calendarStart && this.isAfterMinDate(moment(this.calendarStart).startOf('month'), false, false);
