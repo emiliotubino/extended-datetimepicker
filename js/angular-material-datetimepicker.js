@@ -68,9 +68,13 @@
   + '      </md-dialog-actions>'
   + '  </md-dialog>';
 
-  angular.module(moduleName, ['ngMaterial'])
+  angular.module(moduleName, ['ngAnimate','ngMaterial'])
+    .config(function($mdIconProvider) {
+      $mdIconProvider.defaultIconSet('', 24);
+    })
     .provider('mdcDatetimePickerDefaultLocale', function () {
-      this.locale = 'en';
+      var language = (navigator.language || navigator.userLanguage).slice(0, 2);
+      this.locale = language;
 
       this.$get = function () {
         return this.locale;
@@ -260,6 +264,7 @@
       this.weekDays = this.params.weekDays;
     },
     initDate: function (d) {
+      console.log('VIEW_STATES.DATE', VIEW_STATES.DATE)
       this.currentView = VIEW_STATES.DATE;
     },
     initHours: function () {
@@ -387,6 +392,7 @@
       //   this.maxDate = this.maxDate.add(amount, 'month')
       // }
       this.selectDate(this.currentDate.add(amount, 'month'));
+      this.initDate()
     },
     incrementYear: function (amount) {
       // if (amount === 1) {
@@ -397,15 +403,7 @@
       //   this.maxDate = this.maxDate.add(amount, 'Year')
       // }
       this.selectDate(this.currentDate.add(amount, 'Year'));
-    },
-    incrementYear: function (amount) {
-      if (amount === 1 && this.isNextYearVisible()) {
-        this.selectDate(this.currentDate.add(amount, 'year'));
-      }
-
-      if (amount === -1 && this.isPreviousYearVisible()) {
-        this.selectDate(this.currentDate.add(amount, 'year'));
-      }
+      this.initDate()
     },
     isPreviousMonthVisible: function () {
       return this.calendarStart && this.isAfterMinDate(moment(this.calendarStart).startOf('month'), false, false);
@@ -613,6 +611,7 @@
 
               var generateMonthCalendar = function (date) {
                 var month = {};
+                console.log('date', date)
                 if (date !== null) {
                   month.name = date.format('MMMM YYYY');
                   var startOfMonth = moment(date).locale(picker.params.lang).startOf('month')
@@ -726,7 +725,7 @@
           },
           require: '^mdcDatetimePickerCalendar',
           restrict: 'AE',
-          template:'<table class="table dtp-picker-days">'
+          template:'<table ng-show="cal.picker.currentDate.format(\'MMMM YYYY\').toString() === month.name" class="table dtp-picker-days">'
           + '    <thead>'
           + '    <tr>'
           + '        <th ng-repeat="day in cal.week">{{cal.toDay(day)}}</th>'
@@ -948,4 +947,4 @@
         }
       }]);
 
-  })(moment);
+})(moment);
