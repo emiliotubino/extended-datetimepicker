@@ -93,7 +93,7 @@
             minDate: '=',
             maxDate: '=',
             disableDates: '=',
-            // weekDays: '=',
+            weekDays: '=',
             shortTime: '=',
             format: '@',
             cancelText: '@',
@@ -178,7 +178,7 @@
     this.minDate;
     this.maxDate;
     this.disableDates;
-    // this.weekDays;
+    this.weekDays;
 
     this._attachedEvents = [];
     this.VIEWS = VIEW_STATES;
@@ -191,7 +191,7 @@
       maxDate: null,
       currentDate: null,
       disableDates: [],
-      // weekDays: false,
+      weekDays: false,
       lang: mdcDatetimePickerDefaultLocale,
       weekStart: 0,
       shortTime: false,
@@ -210,7 +210,7 @@
     init: function () {
       this.timeMode = this.params.time && !this.params.date;
       this.dateMode = this.params.date;
-      // this.todaysDate = moment(Date.now()).format("YYYY-MM-DD");
+      this.todaysDate = moment(Date.now()).format("YYYY-MM-DD");
       this.initDates();
       this.start();
     },
@@ -257,7 +257,7 @@
         return moment(x).format('MMMM Do YYYY')
       });
       this.selectDate(this.currentDate);
-      // this.weekDays = this.params.weekDays;
+      this.weekDays = this.params.weekDays;
     },
     initDate: function (d) {
       this.currentView = VIEW_STATES.DATE;
@@ -341,15 +341,15 @@
       }
       return true;
     },
-    // isWeekDay: function(date) {
-    //   if (this.weekDays) {
-    //     if ( date.isoWeekday() <= 5) {
-    //       return true;
-    //     }
-    //     return false;
-    //   }
-    //   return true;
-    // },
+    isWeekDay: function(date) {
+      if (this.weekDays) {
+        if ( date.isoWeekday() <= 5) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    },
     selectDate: function (date) {
       if (date) {
         this.currentDate = moment(date);
@@ -654,7 +654,7 @@
               calendar.isInRange = function (date) {
                 return picker.isAfterMinDate(moment(date), false, false)
                   && picker.isBeforeMaxDate(moment(date), false, false)
-                  // && picker.isWeekDay(moment(date))
+                  && picker.isWeekDay(moment(date))
                   && picker.isInDisableDates(moment(date));
               };
 
@@ -671,13 +671,13 @@
                 return m && calendar.date.date() === m.date() && calendar.date.month() === m.month() && calendar.date.year() === m.year();
               };
 
-              // calendar.isDateOfTheDay = function (m) {
-              //   var today = calendar.picker.options.showTodaysDate;
-              //   if (!today) {
-              //     return false;
-              //   }
-              //   return m && today.date() === m.date() && today.month() === m.month() && today.year() === m.year();
-              // }
+              calendar.isDateOfTheDay = function (m) {
+                var today = calendar.picker.options.showTodaysDate;
+                if (!today) {
+                  return false;
+                }
+                return m && today.date() === m.date() && today.month() === m.month() && today.year() === m.year();
+              }
 
             }
           ],
