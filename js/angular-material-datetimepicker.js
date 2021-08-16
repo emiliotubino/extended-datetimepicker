@@ -729,11 +729,13 @@
           link: function (scope, element, attrs, calendar) {
             scope.cal = calendar;
             scope.month = calendar.getItemAtIndex(parseInt(scope.idx));
+            console.log(scope.month, scope.cal)
             buildCalendarContent(element, scope);
             scope.$watch(function () {
               return scope.idx;
             }, function (idx, oldIdx) {
               if (idx != oldIdx) {
+                console.log('above', scope.month, scope.cal)
                 scope.month = calendar.getItemAtIndex(parseInt(scope.idx));
                 buildCalendarContent(element, scope);
               }
