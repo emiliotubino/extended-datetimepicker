@@ -250,8 +250,8 @@
         };
   
         this.currentDate = _dateParam(this.params.currentDate, moment());
-        this.minDate = _dateParam(this.params.minDate);
-        this.maxDate = _dateParam(this.params.maxDate);
+        this.minDate = moment().subtract(1, 'day');
+        this.maxDate = moment().add(1, 'day');
         this.disableDates = this.params.disableDates.map(function(x) {
           return moment(x).format('MMMM Do YYYY')
         });
