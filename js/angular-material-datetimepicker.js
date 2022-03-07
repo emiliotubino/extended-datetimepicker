@@ -59,7 +59,6 @@
     + '      </md-dialog-content>'
     + '      <md-dialog-actions class="dtp-buttons" layout="row" layout-align="flex-end end">'
     + '        <md-button class="dtp-btn-cancel md-button" ng-click="picker.cancel()"> {{picker.params.cancelText}}</md-button>'
-    + '        <md-button class="dtp-btn-ok md-button" ng-click="picker.ok()"> {{picker.params.okText}}</md-button>'
     + '      </md-dialog-actions>'
     + '  </md-dialog>';
   
@@ -636,10 +635,11 @@
   
                 calendar.selectDate = function (date) {
                   if (date) {
-                    if (calendar.isSelectedDay(date)) {
+                    /*if (calendar.isSelectedDay(date)) {
                       return picker.ok();
-                    }
-                    picker.selectDate(moment(date).hour(calendar.date.hour()).minute(calendar.date.minute()));
+                    }*/
+                    //picker.selectDate(moment(date).hour(calendar.date.hour()).minute(calendar.date.minute()));
+                    return picker.ok();
                   }
                 };
   
